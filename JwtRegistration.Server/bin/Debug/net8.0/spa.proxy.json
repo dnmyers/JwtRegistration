@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:5173",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "E:\\Coding\\.NET\\ASP.NET_React\\Auth Projects\\JwtRegistration\\JwtRegistration.Server\\..\\jwtregistration.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}
