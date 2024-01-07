@@ -1,6 +1,29 @@
-@JwtRegistration.Server_HostAddress = http://localhost:5271
+@JwtRegistration.Server_HostAddress = https://localhost:7083
 
+### Log in and get JWT token to send with other requests to secured endpoints
+POST {{JwtRegistration.Server_HostAddress}}/authorization/token
+Accept: application/json
+Content-Type: application/json
+
+{
+    "userName": "dn8326",
+    "password": "Mypass1*"
+}
+
+### GET the token from the response of the previous request and assign it to JwtRegistration.token
+@JwtRegistration.token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZG44MzI2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmOTFiMjBiNC1lZWJkLTQ0NzItOWEwMy1kYTc1YWVlMjk1Y2MiLCJuYmYiOjE3MDQ2MTI2MDYsImV4cCI6MTcwNDYxNjIwNiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE3MSIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcxNzEifQ.CP9VIK8-VK37i9uLNVwlEpsviVHdXGaILq29IfbICks
+
+### GET WeatherForecast with JWT token
 GET {{JwtRegistration.Server_HostAddress}}/weatherforecast/
 Accept: application/json
+Authorization: Bearer {{JwtRegistration.token}}
+
+###
+
+### GET protected resources with JWT token
+
+GET {{JwtRegistration.Server_HostAddress}}/api/resources
+Accept: */*
+Authorization: Bearer {{JwtRegistration.token}}
 
 ###
