@@ -15,7 +15,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         // Redirect to homepage if user already logged in
-        if (localStorage.getItem("token")) navigate("/home");
+        if (localStorage.getItem("token")) navigate("/");
     }, [navigate]);
 
     // Form validation rules
