@@ -142,3 +142,4 @@ E:\Coding\.NET\ASP.NET_React\Auth Projects\JwtRegistration\JwtRegistration.Serve
 E:\Coding\.NET\ASP.NET_React\Auth Projects\JwtRegistration\JwtRegistration.Server\obj\Debug\net8.0\JwtRegistration.Server.pdb
 E:\Coding\.NET\ASP.NET_React\Auth Projects\JwtRegistration\JwtRegistration.Server\obj\Debug\net8.0\JwtRegistration.Server.genruntimeconfig.cache
 E:\Coding\.NET\ASP.NET_React\Auth Projects\JwtRegistration\JwtRegistration.Server\obj\Debug\net8.0\ref\JwtRegistration.Server.dll
+E:\Coding\.NET\ASP.NET_React\Auth Projects\JwtRegistration\JwtRegistration.Server\obj\Debug\net8.0\JwtRegistration.Server.sourcelink.json

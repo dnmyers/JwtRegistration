@@ -1,12 +1,10 @@
-using System;
 using System.Text;
+using JwtRegistration.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using JwtRegistration.Server.Data;
-using JwtRegistration.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -65,8 +63,8 @@ services.AddAuthentication(options => {
         x.SaveToken = true;
         x.TokenValidationParameters = new TokenValidationParameters {
             ValidateIssuerSigningKey = true,
-            ValidAudience = "https://localhost:7171",
-            ValidIssuer = "https://localhost:7171",
+            ValidAudience = "https://localhost:7083",
+            ValidIssuer = "https://localhost:7083",
             IssuerSigningKey = key,
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
@@ -98,17 +96,17 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using(var scope = app.Services.CreateScope())
-using(var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>())
-using(var db = scope.ServiceProvider.GetRequiredService<AuthContext>()) {
-    db.Database.Migrate();
-    var user = await userManager.FindByNameAsync(Consts.UserName);
+//using(var scope = app.Services.CreateScope())
+//using(var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>())
+//using(var db = scope.ServiceProvider.GetRequiredService<AuthContext>()) {
+//    db.Database.Migrate();
+//    var user = await userManager.FindByNameAsync(Consts.UserName);
 
-    if(user is null) {
-        user = new IdentityUser(Consts.UserName);
-        await userManager.CreateAsync(user, Consts.Password);
-    }
-}
+//    if(user is null) {
+//        user = new IdentityUser(Consts.UserName);
+//        await userManager.CreateAsync(user, Consts.Password);
+//    }
+//}
 
 app.MapFallbackToFile("/index.html");
 

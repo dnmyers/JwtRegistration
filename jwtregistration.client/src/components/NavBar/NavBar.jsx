@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Collapse,
     Navbar,
@@ -7,12 +7,24 @@ import {
     Nav,
     NavItem,
     NavLink,
+    Button,
 } from "reactstrap";
+
+import { history } from "../../helpers/history";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
+
+    const logout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        history.navigate("/");
+
+        window.location.reload();
+    };
 
     return (
         <Navbar color='dark' dark className='my-2'>
@@ -26,6 +38,17 @@ const NavBar = () => {
                     <NavItem>
                         <NavLink href='/register'>Register</NavLink>
                     </NavItem>
+                    {localStorage.getItem("token") && (
+                        <NavItem>
+                            <Button
+                                type='button'
+                                onClick={logout}
+                                className='btn-link'
+                            >
+                                Logout
+                            </Button>
+                        </NavItem>
+                    )}
                 </Nav>
             </Collapse>
         </Navbar>
