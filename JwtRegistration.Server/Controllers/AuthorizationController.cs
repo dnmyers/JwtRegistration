@@ -1,16 +1,12 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using JwtRegistration.Server.Data;
 using JwtRegistration.Server.Dto;
 using JwtRegistration.Server.Exceptions;
-using JwtRegistration.Server.Data;
-using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace JwtRegistration.Server.Controllers {
     [ApiController]
@@ -27,8 +23,7 @@ namespace JwtRegistration.Server.Controllers {
             AuthContext authContext,
             IConfiguration configuration,
             SignInManager<IdentityUser> signInManager,
-            IUserStore<IdentityUser> userStore)
-        {
+            IUserStore<IdentityUser> userStore) {
             _userManager = userManager;
             _configuration = configuration;
             _signInManager = signInManager;
@@ -46,7 +41,7 @@ namespace JwtRegistration.Server.Controllers {
         public async Task<IActionResult> GetTokenAsync([FromBody] GetTokenRequest request) {
             var user = await _userManager.FindByNameAsync(request.UserName);
 
-            if (user is null) {
+            if(user is null) {
                 // 401 or 404
                 return Unauthorized();
                 throw new UserNotFoundException(request.UserName);
@@ -54,7 +49,7 @@ namespace JwtRegistration.Server.Controllers {
 
             var passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
 
-            if (!passwordValid) {
+            if(!passwordValid) {
                 // 401 or 400
                 return Unauthorized();
                 throw new InvalidPasswordException(request.UserName);
@@ -75,7 +70,7 @@ namespace JwtRegistration.Server.Controllers {
         /// <param name="userName">The name of the user.</param>
         /// <returns>An <see cref="AuthorizationResponse"/> containing the generated authorization token.</returns>
         private AuthorizationResponse GenerateAuthorizationToken(string userId, string userName) {
-        // private async Task<AuthorizationResponse> GenerateAuthorizationTokenAsync(string userId, string userName) {
+            // private async Task<AuthorizationResponse> GenerateAuthorizationTokenAsync(string userId, string userName) {
             // This method creates a JWT and returns it in a well-defined response DTO.
             // Creates the claims, puts them into a JWT object, and signs it with the secret defined in appsettings.json.
             var now = DateTime.UtcNow;
@@ -98,8 +93,8 @@ namespace JwtRegistration.Server.Controllers {
                 notBefore: now,
                 claims: userClaims,
                 expires: expires,
-                audience: "https://localhost:7171",
-                issuer: "https://localhost:7171",
+                audience: "https://localhost:7083",
+                issuer: "https://localhost:7083",
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 
             // We don't know about thread safety of token handler

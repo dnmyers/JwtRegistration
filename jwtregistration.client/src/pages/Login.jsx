@@ -20,8 +20,8 @@ const LoginPage = () => {
 
     const baseUrl = import.meta.env.VITE_REACT_APP_API_SERVER_HOST_URL;
 
-    const [userName, setUserName] = useState("dn8326");
-    const [password, setPassword] = useState("Mypass1*");
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -59,14 +59,6 @@ const LoginPage = () => {
             .catch((err) => console.log(err));
     };
 
-    const handleUserNameChange = (e) => {
-        setUserName({ value: e.target.value });
-    };
-
-    const handlePasswordChange = (e) => {
-        setPassword({ value: e.target.value });
-    };
-
     return (
         <Container className='mt-5'>
             <Row>
@@ -88,7 +80,9 @@ const LoginPage = () => {
                                         name='userName'
                                         type='text'
                                         value={userName}
-                                        onChange={handleUserNameChange}
+                                        onChange={(e) =>
+                                            setUserName(e.target.value)
+                                        }
                                         placeholder='User Name'
                                     />
                                     <Label for='userName'>User Name</Label>
@@ -99,7 +93,9 @@ const LoginPage = () => {
                                         name='password'
                                         type='password'
                                         value={password}
-                                        onChange={handlePasswordChange}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
                                         placeholder='Password'
                                     />
                                     <Label for='password'>Password</Label>
