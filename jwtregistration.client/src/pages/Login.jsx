@@ -18,6 +18,8 @@ import {
 const LoginPage = () => {
     const navigate = useNavigate();
 
+    const baseUrl = import.meta.env.VITE_REACT_APP_API_SERVER_HOST_URL;
+
     const [userName, setUserName] = useState("dn8326");
     const [password, setPassword] = useState("Mypass1*");
 
@@ -40,7 +42,7 @@ const LoginPage = () => {
         };
 
         axios
-            .post("https://localhost:7171/authorization/token", loginPayload)
+            .post(`${baseUrl}/authorization/token`, loginPayload)
             .then((response) => {
                 const token = response.data.authorizationToken;
 
@@ -102,11 +104,7 @@ const LoginPage = () => {
                                     />
                                     <Label for='password'>Password</Label>
                                 </FormGroup>
-                                <Button
-                                    color='primary'
-                                    onClick={() => navigate("/home")}
-                                    type='submit'
-                                >
+                                <Button color='primary' type='submit'>
                                     Login
                                 </Button>
                                 <Button

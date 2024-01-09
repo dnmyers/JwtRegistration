@@ -24,7 +24,7 @@ const RegisterPage = () => {
 
     const navigate = useNavigate();
 
-    const baseUrl = import.meta.VITE_REACT_APP_API_SERVER_HOST_URL;
+    const baseUrl = import.meta.env.VITE_REACT_APP_API_SERVER_HOST_URL;
 
     useEffect(() => {
         const token = localStorage.getItem("token");
